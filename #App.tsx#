@@ -1,0 +1,39 @@
+import { useState } from "react"
+import { ScrollView, Text, View } from "react-native"
+
+const App = () => {
+  const [task, setTask] = useState('')
+  const [day, setDay] = useState('')
+  const [tasks, setTasks] = useState<Array<Object>>([])
+
+  const handleAddTask = () => {
+    if (task.trim() && day.trim()) {
+      setTasks([...tasks, {task, day}])
+      setTask('')
+      setDay('')
+    }
+  }
+
+  const handleDeleteTask = () => {
+    const newTasks = [...tasks]
+    newTasks.splice(index, 1)
+    setTasks(newTasks)
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Lista de Tarefas</Text>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.table}>
+          <View style={[styles.row, styles.header]}>
+            <Text style={[styles.cell, styles.headerText]}>Tarefa</Text>
+            <Text style={[styles.cell, styles.headerText, styles.dayHeader]}>Dia</Text>
+            <Text style={[styles.cell, styles.headerText]}></Text>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
+  )
+}
+
+export default App
